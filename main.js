@@ -1,3 +1,18 @@
+import { Camera } from "@mediapipe/camera_utils";
+import { drawConnectors } from "@mediapipe/drawing_utils";
+import {
+  FACEMESH_TESSELATION,
+  FACEMESH_RIGHT_EYE,
+  FACEMESH_RIGHT_EYEBROW,
+  FACEMESH_RIGHT_IRIS,
+  FACEMESH_LEFT_EYE,
+  FACEMESH_LEFT_EYEBROW,
+  FACEMESH_LEFT_IRIS,
+  FACEMESH_FACE_OVAL,
+  FACEMESH_LIPS,
+  FaceMesh,
+} from "@mediapipe/face_mesh";
+
 const videoElement = document.getElementsByClassName("input_video")[0];
 const canvasElement = document.getElementsByClassName("output_canvas")[0];
 const canvasCtx = canvasElement.getContext("2d");
@@ -18,7 +33,6 @@ function onResults(results) {
         color: "#C0C0C070",
         lineWidth: 1,
       });
-      console.log(landmarks);
       drawConnectors(canvasCtx, landmarks, FACEMESH_RIGHT_EYE, {
         color: "#FF3030",
       });
