@@ -15,6 +15,8 @@
     "@mediapipe/camera_utils": "^0.3.1640029074",
     "@mediapipe/control_utils": "^0.6.1629159505",
     "@mediapipe/drawing_utils": "^0.3.1620248257",
-    "@mediapipe/face_mesh": "^0.4.1633559619"
+    "@mediapipe/face_mesh": "^0.4.1633559619",
+    "fuse.js": "^6.6.2",
+    "jquery": "^3.6.1"
   }
 }

@@ -1,7 +1,21 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@mediapipe/camera_utils': ^0.3.1640029074
+  '@mediapipe/control_utils': ^0.6.1629159505
+  '@mediapipe/drawing_utils': ^0.3.1620248257
+  '@mediapipe/face_mesh': ^0.4.1633559619
+  fuse.js: ^6.6.2
+  jquery: ^3.6.1
   vite: ^3.2.3
+
+dependencies:
+  '@mediapipe/camera_utils': 0.3.1640029074
+  '@mediapipe/control_utils': 0.6.1629159505
+  '@mediapipe/drawing_utils': 0.3.1620248257
+  '@mediapipe/face_mesh': 0.4.1633559619
+  fuse.js: 6.6.2
+  jquery: 3.6.1
 
 devDependencies:
   vite: 3.2.4
@@ -25,6 +39,22 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@mediapipe/camera_utils/0.3.1640029074:
+    resolution: {integrity: sha512-jRV/Mp2lgqNYT68TeVRu/Xq+ptZO9F9vCjxzQsA3VM2r7oXg0TrnfO9De2KKOUTpt0p28dKHs625J8GdWjha8A==}
+    dev: false
+
+  /@mediapipe/control_utils/0.6.1629159505:
+    resolution: {integrity: sha512-n8ZfgwZlv3EDiF2bsz81+74qWqbu5JSukxRRVuJqkqxO1CsfQGFj8XI2Cxj0UlsnO1vzNelZiWV1tP3of47z7g==}
+    dev: false
+
+  /@mediapipe/drawing_utils/0.3.1620248257:
+    resolution: {integrity: sha512-s598oo1K6C62mX3rWXJ7n1RJFdXjyQn3f6CeI+lU6kD69MVyBcV3hdmO5LnEZlCw5NRDANtaM8WAOuqZHaldLg==}
+    dev: false
+
+  /@mediapipe/face_mesh/0.4.1633559619:
+    resolution: {integrity: sha512-Vc8cdjxS5+O2gnjWH9KncYpUCVXT0h714KlWAsyqJvJbIgUJBqpppbIx8yWcAzBDxm/5cYSuBI5p5ySIPxzcEg==}
+    dev: false
 
   /esbuild-android-64/0.15.14:
     resolution: {integrity: sha512-HuilVIb4rk9abT4U6bcFdU35UHOzcWVGLSjEmC58OVr96q5UiRqzDtWjPlCMugjhgUGKEs8Zf4ueIvYbOStbIg==}
@@ -248,6 +278,11 @@ packages:
     resolution: {integrity: sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==}
     dev: true
 
+  /fuse.js/6.6.2:
+    resolution: {integrity: sha512-cJaJkxCCxC8qIIcPBF9yGxY0W/tVZS3uEISDxhYIdtk8OL93pe+6Zj7LjCqVV4dzbqcriOZ+kQ/NE4RXZHsIGA==}
+    engines: {node: '>=10'}
+    dev: false
+
   /has/1.0.3:
     resolution: {integrity: sha512-f2dvO0VU6Oej7RkWJGrehjbzMAjFp5/VKPp5tTpWIV4JHHZK1/BxbFRtf/siA2SWTe09caDmVtYYzWEIbBS4zw==}
     engines: {node: '>= 0.4.0'}
@@ -260,6 +295,10 @@ packages:
     dependencies:
       has: 1.0.3
     dev: true
+
+  /jquery/3.6.1:
+    resolution: {integrity: sha512-opJeO4nCucVnsjiXOE+/PcCgYw9Gwpvs/a6B1LL/lQhwWwpbVEVYDZ1FokFr8PRc7ghYlrFPuyHuiiDNTQxmcw==}
+    dev: false
 
   /nanoid/3.3.4:
     resolution: {integrity: sha512-MqBkQh/OHTS2egovRtLk45wEyNXwF+cokD+1YPf9u5VfJiRdAiRwB2froX5Co9Rh20xs4siNPm8naNotSD6RBw==}
