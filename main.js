@@ -63,7 +63,11 @@ input.addEventListener("input", async (e) => {
         `);
     });
   });
-  console.log(s_res);
+  // console.log(s_res);
+});
+
+window.addEventListener("click", () => {
+  input.value += "A";
 });
 
 setInterval(() => {
