@@ -7,7 +7,10 @@ specifiers:
   '@mediapipe/face_mesh': ^0.4.1633559619
   fuse.js: ^6.6.2
   jquery: ^3.6.1
+  speak-tts: ^2.0.8
+  talkify-tts: ^3.9.3
   vite: ^3.2.3
+  vocabulator: ^0.2.1
 
 dependencies:
   '@mediapipe/camera_utils': 0.3.1640029074
@@ -16,6 +19,9 @@ dependencies:
   '@mediapipe/face_mesh': 0.4.1633559619
   fuse.js: 6.6.2
   jquery: 3.6.1
+  speak-tts: 2.0.8
+  talkify-tts: 3.9.3
+  vocabulator: 0.2.1
 
 devDependencies:
   vite: 3.2.4
@@ -345,10 +351,18 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
+  /speak-tts/2.0.8:
+    resolution: {integrity: sha512-VY6Q6mRjdou6bF+x0LspvM7GJhBxHx8CLyGPTNQQ7jrztiGutyI4QNZn0cA17c4uk0FnFbA4PaMI3skeZ6PiFg==}
+    dev: false
+
   /supports-preserve-symlinks-flag/1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
     dev: true
+
+  /talkify-tts/3.9.3:
+    resolution: {integrity: sha512-/o79n/VXerq8vA20iYx6n3j0MEQcdh4vBVH7cZag8bTmReEzuke9AMOpM5/5P9vYBarXE4LA3mAnl5qjXBzCqw==}
+    dev: false
 
   /vite/3.2.4:
     resolution: {integrity: sha512-Z2X6SRAffOUYTa+sLy3NQ7nlHFU100xwanq1WDwqaiFiCe+25zdxP1TfCS5ojPV2oDDcXudHIoPnI1Z/66B7Yw==}
@@ -382,3 +396,7 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
+
+  /vocabulator/0.2.1:
+    resolution: {integrity: sha512-xRp0lan7DwJVQMnC55SDIjckVAnsG90QFHa3fIpChmF7SJ4XTovARgV4LCoSvrfa91HHoPfp0ERR8X4uWIaMVg==}
+    dev: false

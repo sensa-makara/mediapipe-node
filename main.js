@@ -13,12 +13,22 @@ import {
   FaceMesh,
 } from "@mediapipe/face_mesh";
 
+import vocabulator from "vocabulator";
+
+const synthesizer = vocabulator({
+  language: "id-ID",
+  voiceName: "Google Bahasa Indonesia",
+  pitch: 1,
+});
+
 const videoElement = document.getElementsByClassName("input_video")[0];
 const canvasElement = document.getElementsByClassName("output_canvas")[0];
 const indicator = document.querySelector(".indicator");
 const canvasCtx = canvasElement.getContext("2d");
 const board = document.querySelector(".board");
 const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const selected = document.querySelector(".text-selection");
+let l = chars;
 const input = document.querySelector("input");
 import Fuse from "fuse.js";
 import $ from "jquery";
@@ -29,31 +39,32 @@ const fuse = (async () => {
   return new Fuse(data, { keys: ["word"] });
 })();
 
-for (let i = 0; i < 26; i++) {
+for (let i = 0; i < l.length; i++) {
   const letter = document.createElement("div");
-  letter.innerText = chars[i];
-  letter.id = chars[i];
+  letter.innerText = l[i];
+  letter.id = l[i];
   letter.className = "char";
   board.appendChild(letter);
 }
 
-const letters = document.querySelectorAll(".char");
-
-let num = 26;
 let count = 0;
-
+let letterList = [];
 let EAR_LEFT = 1000;
 let EAR_RIGHT = 1000;
 let EAR_LEFT_PREV = 0;
 let EAR_RIGHT_PREV = 0;
 
-let blink = false;
-let left = true;
+var inputEvent = new Event("text-modified", {
+  view: window,
+  bubbles: true,
+  cancelable: true,
+});
 
-input.addEventListener("input", async (e) => {
+let s_res;
+input.addEventListener("text-modified", (e) => {
   let q = e.target.value;
   fuse.then((f) => {
-    let s_res = f.search(q).slice(0, 10);
+    s_res = f.search(q).slice(0, 10);
     $(".suggestions").empty();
     s_res.forEach((s, i) => {
       $(".suggestions").append(`
@@ -63,60 +74,61 @@ input.addEventListener("input", async (e) => {
         `);
     });
   });
-  // console.log(s_res);
 });
 
-window.addEventListener("click", () => {
-  input.value += "A";
+let k = 0;
+window.addEventListener("wheel", () => {
+  try {
+    Array.from(document.querySelectorAll(".suggestion-item")).map((e) => {
+      e.className = "suggestion-item";
+    });
+    document.getElementById(k.toString()).className =
+      "suggestion-item highlight";
+    k = (k + 1) % 10;
+  } catch (e) {
+    input.value = input.value.slice(0, input.value.length - 1);
+  }
 });
 
+window.addEventListener("click", (event) => {
+  try {
+    if (event.button === 0) {
+      selected.innerHTML +=
+        " " +
+        document.getElementById(((k - 1) % 10).toString()).innerText.trim();
+      input.value = "";
+      input.dispatchEvent(inputEvent);
+    }
+  } catch (e) {
+    synthesizer.say({ text: selected.innerHTML.trim() });
+    selected.innerHTML = "";
+  }
+});
+
+let letters = document.querySelectorAll(".char");
 setInterval(() => {
   count = (count + 1) % 2;
-  console.log(count);
-  let letterList = Array.from(letters);
+  letterList = Array.from(letters);
   letterList.forEach((e) => {
     e.className = "default";
   });
   // console.log(letterList[0]);
   if (count === 0) {
-    if (left) {
-      for (let i = 0; i < Math.floor(num / 2); i++) {
-        letterList[i].className = "highlight";
-      }
-      for (let j = Math.floor(num / 2); j < Math.floor(num); j++) {
-        console.log(j);
-        letterList[j].className = "not-highlight";
-      }
-    } else {
-      for (let i = 26 - Math.floor(num / 2); i < 26; i++) {
-        letterList[i].className = "not-highlight";
-      }
-      for (let j = Math.floor(num / 2); j < Math.floor(num); j++) {
-        letterList[j].className = "highlight";
-      }
+    for (let i = 0; i < Math.floor(l.length / 2); i++) {
+      letterList[i].className = "highlight";
+    }
+    for (let j = Math.floor(l.length / 2); j < Math.floor(l.length); j++) {
+      letterList[j].className = "not-highlight";
     }
   } else {
-    if (left) {
-      for (let i = 0; i < Math.floor(num / 2); i++) {
-        letterList[i].className = "not-highlight";
-      }
-      for (let j = Math.floor(num / 2); j < Math.floor(num); j++) {
-        letterList[j].className = "highlight";
-      }
-    } else {
-      for (let i = 26 - Math.floor(num / 2); i < 26; i++) {
-        letterList[i].className = "not-highlight";
-      }
-      for (let j = Math.floor(num / 2); j < Math.floor(num); j++) {
-        letterList[j].className = "highlight";
-      }
+    for (let i = 0; i < Math.floor(l.length / 2); i++) {
+      letterList[i].className = "not-highlight";
+    }
+    for (let j = Math.floor(l.length / 2); j < Math.floor(l.length); j++) {
+      letterList[j].className = "highlight";
     }
   }
-  if (Math.floor(num) === 1) {
-    input.innerHTML = letterList[Math.floor()];
-  }
-  console.log(num);
-}, 1000);
+}, 1500);
 
 function onResults(results) {
   canvasCtx.save();
@@ -183,20 +195,29 @@ function onResults(results) {
             (landmarks[362].x - landmarks[263].x) ** 2 -
               (landmarks[362].y - landmarks[263].y) ** 2
           );
-      if (EAR_LEFT_PREV * 0.65 > EAR_LEFT && EAR_RIGHT_PREV * 0.7 > EAR_RIGHT) {
+      if (EAR_LEFT_PREV * 0.7 > EAR_LEFT && EAR_RIGHT_PREV * 0.7 > EAR_RIGHT) {
         indicator.innerHTML = "blinked";
-        num = num / 2;
-        if (Math.floor(num) === 0) {
-          num = 26;
-        }
-        if (count === 1) {
-          left = true;
+        board.textContent = "";
+        if (count === 0) {
+          l = l.slice(0, Math.floor(l.length / 2));
         } else {
-          left = false;
+          l = l.slice(Math.floor(l.length / 2), l.length);
         }
+        if (l.length === 1) {
+          input.value += l;
+          input.dispatchEvent(inputEvent);
+          l = chars;
+        }
+        for (let i = 0; i < l.length; i++) {
+          const letter = document.createElement("div");
+          letter.innerText = l[i];
+          letter.id = l[i];
+          letter.className = "char";
+          board.appendChild(letter);
+        }
+        letters = document.querySelectorAll(".char");
       } else {
         indicator.innerHTML = "not blinked";
-        blink = false;
       }
       EAR_LEFT_PREV = EAR_LEFT;
       EAR_RIGHT_PREV = EAR_RIGHT;

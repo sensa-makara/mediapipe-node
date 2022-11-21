@@ -17,6 +17,9 @@
     "@mediapipe/drawing_utils": "^0.3.1620248257",
     "@mediapipe/face_mesh": "^0.4.1633559619",
     "fuse.js": "^6.6.2",
-    "jquery": "^3.6.1"
+    "jquery": "^3.6.1",
+    "speak-tts": "^2.0.8",
+    "talkify-tts": "^3.9.3",
+    "vocabulator": "^0.2.1"
   }
 }
