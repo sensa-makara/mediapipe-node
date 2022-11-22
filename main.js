@@ -77,9 +77,6 @@ input.addEventListener("text-modified", (e) => {
 
 let k = 0;
 window.addEventListener("wheel", () => {
-  console.log(k);
-  document.getElementById("delete").className = "";
-
   try {
     Array.from(document.querySelectorAll(".suggestion-item")).map((e) => {
       e.className = "suggestion-item";
@@ -88,6 +85,7 @@ window.addEventListener("wheel", () => {
       "suggestion-item highlight";
     k = (k + 1) % s_res.length;
   } catch (e) {
+    console.log(e);
     // input.value = input.value.slice(0, input.value.length - 1);
   }
 });
@@ -114,6 +112,7 @@ window.addEventListener("click", (event) => {
     synthesizer.say({ text: selected.innerHTML.trim() });
     selected.innerHTML = "";
   }
+  k = 0;
 });
 
 let letters = document.querySelectorAll(".char");
