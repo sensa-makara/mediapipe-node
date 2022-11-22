@@ -26,7 +26,7 @@ const canvasElement = document.getElementsByClassName("output_canvas")[0];
 const indicator = document.querySelector(".indicator");
 const canvasCtx = canvasElement.getContext("2d");
 const board = document.querySelector(".board");
-const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const chars = "\\ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const selected = document.querySelector(".text-selection");
 let l = chars;
 const input = document.querySelector("input");
@@ -59,7 +59,6 @@ var inputEvent = new Event("text-modified", {
   bubbles: true,
   cancelable: true,
 });
-
 let s_res;
 input.addEventListener("text-modified", (e) => {
   let q = e.target.value;
@@ -69,7 +68,7 @@ input.addEventListener("text-modified", (e) => {
     s_res.forEach((s, i) => {
       $(".suggestions").append(`
             <li class="suggestion-item" id="${i}">
-                ${s.item.word}
+                ${s.item.word.toUpperCase()}
             </li>
         `);
     });
@@ -78,24 +77,36 @@ input.addEventListener("text-modified", (e) => {
 
 let k = 0;
 window.addEventListener("wheel", () => {
+  console.log(k);
+  document.getElementById("delete").className = "";
+
   try {
     Array.from(document.querySelectorAll(".suggestion-item")).map((e) => {
       e.className = "suggestion-item";
     });
     document.getElementById(k.toString()).className =
       "suggestion-item highlight";
-    k = (k + 1) % 10;
+    k = (k + 1) % s_res.length;
   } catch (e) {
-    input.value = input.value.slice(0, input.value.length - 1);
+    // input.value = input.value.slice(0, input.value.length - 1);
   }
 });
 
 window.addEventListener("click", (event) => {
+  console.log(event.button);
   try {
     if (event.button === 0) {
-      selected.innerHTML +=
-        " " +
-        document.getElementById(((k - 1) % 10).toString()).innerText.trim();
+      const res = document
+        .getElementById(((k - 1) % s_res.length).toString())
+        .innerText.trim();
+      if (res === "\\D") {
+        const l = selected.innerHTML.split(" ");
+        selected.innerHTML = l.slice(0, l.length - 1).join(" ");
+      } else if (res === "\\L") {
+        selected.innerHTML = "";
+      } else {
+        selected.innerHTML += " " + res;
+      }
       input.value = "";
       input.dispatchEvent(inputEvent);
     }
